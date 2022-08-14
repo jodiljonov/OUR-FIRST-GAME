@@ -1,0 +1,48 @@
+#FIRST GAME
+import numpy as np
+
+play_round = 0
+white = 1
+black = 1
+
+while white<32 or black<32:
+    play_round = play_round+1
+    
+    play_white = np.random.randint(1,7, size=1)
+    print('Dice of white player is', play_white)
+#First condition: until you get 6 you cant place a piece when you are in zero position    
+    if white==0 and play_white!=6:
+        print('Wait until you get 6 now motherfucker')
+#Otherwise play as usual
+    else:
+        white = white + int(input())
+#Second condition: if you happen to get over 32, you cant play further but skip this round
+        if white>32:
+            white = white - play_white
+#Third condition: if white catches black after in same spot, black is kicked of to zero position
+        if white == 14 + black and white-play_white<14 + black and black<16:
+            black = 0
+        if white == black - 14 and white-play_white<14 + black and black>14 and black<30:
+            black = 0
+    
+    play_black = np.random.randint(1,7, size=1)
+    print('Dice of black player is', play_black)
+    if black==0 and play_black!=6:
+        print('Wait until you get 6 now motherfucker')
+    else:
+        black = black + int(input())
+        if black>32:
+            black = black - play_black
+        
+        if black == 14 + white and black-play_black<14 + white and white<16:
+            white = 0
+        if black == white - 14 and black-play_black<14 + white and white>14 and white<30:
+            white = 0
+    
+    
+        
+    print('Position of white:', white, 'and black:', black, 'after round:', play_round)
+#Condition 4: if one of the players arrive 32, Game is over
+    if white==32 or black==32:
+        print('GAME OVER URRA')
+        break
